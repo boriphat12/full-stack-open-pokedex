@@ -3,7 +3,7 @@ name: Lint, Build and Test
 on:
   push:
     branches:
-      - main  # or 'master'
+      - main
   pull_request:
 
 jobs:
@@ -22,11 +22,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
       - name: Lint
         run: npm run lint
 
       - name: Build
         run: npm run build
 
-      - name: Test
+      - name: Unit tests
         run: npm test
+
+      - name: Run end-to-end tests
+        run: npm run test:e2e
